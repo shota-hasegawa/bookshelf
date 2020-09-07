@@ -2,7 +2,7 @@
     <ul class="list-unstyled">
         <% users.each do |user| %>
             <li class="media">
-                <%= image_tag @user.image.url if @user.image?, size: '50x50' %>
+                <%= image_tag @user.image.url if @user.image? %>
                 <div class="media-body">
                     <div>
                         <%= user.name %>

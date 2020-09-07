@@ -1,0 +1,26 @@
+<ul class="list-unstyled">
+    <% books.each do |book| %>
+        <li class="media mb-3">
+            <%= image_tag book.image.url if book.image? %>
+            <div class="media-body">
+                <%= link_to book.name, book_path(book) %>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        評価:
+                    </div>
+                    <div class="offset-sm-2 col-sm-4">
+                        <%= link_to book.user.name, user_path(book.user) %>
+                    </div>
+                    <div>
+                        <% if current_user == book.user %>
+                            <%= link_to "削除", book, method: :delete, data: {confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <% end %>
+    <%= paginate books %>
+</ul>
