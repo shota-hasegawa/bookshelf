@@ -11,7 +11,7 @@ class BooksController < ApplicationController
       flash[:success] = '本を投稿しました。'
       redirect_to root_url
     else
-      @books = current_user.books.order(id: :desc).page(params[:page])
+      @books = current_user.feed_books.order(id: :desc).page(params[:page])
       flash.now[:danger] = '本の投稿に失敗しました。'
       render 'toppages/index'
     end
