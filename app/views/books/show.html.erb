@@ -40,7 +40,7 @@
     </div>
     <div class="col-sm-3">
         <% if current_user == @book.user %>
-            <%= link_to "削除", @book, method: :delete, data: {confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+            <%= link_to "削除", @book, method: :delete, data: {confirm: "本当に削除してもよろしいですか?" }, class: 'btn btn-danger btn-sm' %>
         <% end %>
     </div>
 </div>
