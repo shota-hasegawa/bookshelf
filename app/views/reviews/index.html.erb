@@ -6,8 +6,6 @@
     <%= link_to "本に戻る", book_path(@book), class: 'btn btn-primary btn-sm' %>
 </div>
 <% if @reviews.any? %>
-    <%= render 'layouts/error_messages', model: @review %>
-        
         <ul class="list-unstyled">
             <% @reviews.each do |review| %>
                 <li class="mt-2 bg-light p-3 rounded">
