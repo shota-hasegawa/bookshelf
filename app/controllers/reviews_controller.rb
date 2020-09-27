@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
   
   def index
     @book = Book.find(params[:book_id])
+    @review = current_user.reviews.build
     @reviews = @book.reviews.order(id: :desc).page(params[:page]).per(25)
   end
 

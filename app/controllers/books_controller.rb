@@ -20,7 +20,7 @@ class BooksController < ApplicationController
     else
       @books = current_user.feed_books.order(id: :desc).page(params[:page])
       flash.now[:danger] = '本の投稿に失敗しました。必須項目が未入力です'
-      render 'toppages/index'
+      render "toppages/index"
     end
   end
   
