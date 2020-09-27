@@ -3,11 +3,11 @@
         <%= f.hidden_field :book_id, :value => book.id %>
         <p>レビュー入力欄</p>
         <div class="form-group">
-            <%= f.label :content, 'コメント' %>
+            <%= f.label :content, 'コメント(必須）' %>
             <%= f.text_area :content, class: 'form-control' %>
         </div>
     
-        <p>本の評価</p>     
+        <p>本の評価（必須）</p>     
         <div class="form-group">
             <%= f.radio_button :evaluation, 1 %>
             <%= f.label :evaluation, "1:非常に悪い" %>

@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
       redirect_to book_path(@review.book)
     else
       @reviews = @book.reviews.order(id: :desc).page(params[:page]).per(25)
-      flash.now[:danger] = 'レビューの投稿に失敗しました。'
+      flash.now[:danger] = 'レビューの投稿に失敗しました。必須項目が未入力です。'
       render :index
     end
     
