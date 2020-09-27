@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   
   def index
     @book = Book.find(params[:book_id])
-    @reviews = @book.reviews
+    @reviews = @book.reviews.order(id: :desc).page(params[:page]).per(25)
   end
 
   def create
@@ -14,8 +14,9 @@ class ReviewsController < ApplicationController
       flash[:success] = 'レビューを投稿しました。'
       redirect_to book_path(@review.book)
     else
+      @reviews = @book.reviews.order(id: :desc).page(params[:page]).per(25)
       flash.now[:danger] = 'レビューの投稿に失敗しました。'
-      render 'books/show'
+      render :index
     end
     
     evaluations = @book.reviews.pluck(:evaluation)
