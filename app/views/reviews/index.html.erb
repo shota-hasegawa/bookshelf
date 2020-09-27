@@ -1,0 +1,23 @@
+<h3 class="text-center">
+    レビュー一覧
+</h3>
+<div class="text-center">
+    <%= link_to "本に戻る", book_path(@book), class: 'btn btn-primary btn-sm' %>
+</div>
+<ul class="list-unstyled">
+    <% @reviews.each do |review| %>
+        <li class="mt-2 bg-light p-3 rounded">
+            <div class="row">
+                <div class="col-sm-4">
+                    評価：<%= review.evaluation %>
+                </div>
+                <div class="col-sm-8">
+                    投稿者：<%= link_to review.user.name, user_path(review.user) %>
+                </div>
+            </div>
+            <div>
+                <%= review.content %>
+            </div>
+        </li>
+    <% end %>
+</ul>

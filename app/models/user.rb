@@ -5,6 +5,7 @@ class User < ApplicationRecord
     validates :email, presence: true, length: { maximum: 255 },
                       format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                       uniqueness: { case_sensitive: false }
+    validates :image, presence: true
     has_secure_password
     
     has_many :books
@@ -12,6 +13,9 @@ class User < ApplicationRecord
     has_many :followings, through: :relationships, source: :follow
     has_many :reverses_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
     has_many :followers, through: :reverses_of_relationships, source: :user
+    has_many :favorites, dependent: :destroy
+    has_many :likes, through: :favorites, source: :book
+    has_many :reviews, dependent: :destroy
     
     def follow(other_user)
         unless self == other_user
@@ -30,5 +34,18 @@ class User < ApplicationRecord
     
     def feed_books
         Book.where(user_id: self.following_ids + [self.id])
+    end
+    
+    def favorite(book)
+        self.favorites.find_or_create_by(book_id: book.id)
+    end
+    
+    def unfavorite(book)
+        favorite = self.favorites.find_by(book_id: book.id)
+        favorite.destroy if favorite
+    end
+    
+    def favorite?(book)
+        self.likes.include?(book)
     end
 end

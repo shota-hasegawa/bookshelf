@@ -1,8 +1,15 @@
 class BooksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
   def show
+    @book = Book.find(params[:id])
+    @user = @book.user
+    @review = current_user.reviews.build
+  end
+  
+  def new
+    @book = current_user.books.build
   end
   
   def create
@@ -16,11 +23,25 @@ class BooksController < ApplicationController
       render 'toppages/index'
     end
   end
+  
+  def edit
+  end
+  
+  def update
+    
+    if @book.update(book_params)
+      flash[:success] = '本は正常に更新されました。'
+      redirect_to @book
+    else
+      flash.now[:danger] = '本は更新されませんでした。'
+      render :edit
+    end
+  end
 
   def destroy
     @book.destroy
     flash[:success] = '本を削除しました。'
-    redirect_back(fallback_location: root_path)
+    redirect_to root_url
   end
   
   private
@@ -35,5 +56,6 @@ class BooksController < ApplicationController
       redirect_to root_url
     end
   end
+  
 end
 

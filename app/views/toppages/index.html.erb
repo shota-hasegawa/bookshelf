@@ -1,44 +1,25 @@
 <% if logged_in? %>
-    <div class="row">
-        <aside class="col-sm-4">
-            <%= form_with(model: @book, local: true) do |f| %>
-                <div class="form-group">
-                    <%= f.label :image, 'Image' %>
-                    <%= f.file_field :image %>
-                </div>
-                
-                <div class="form-group">
-                    <%= f.label :name, 'Name' %>
-                    <%= f.text_field :name, class: 'form-control' %>
-                </div>
-                
-                <div class="form-group">
-                    <%= f.radio_button :genre, :novel %>
-                    <%= f.label :genre, "小説" %>
-                    <%= f.radio_button :genre, :manga %>
-                    <%= f.label :genre, "マンガ" %>
-                    <%= f.radio_button :genre, :syudy_book %>
-                    <%= f.label :genre, "学習本" %>
-                    <%= f.radio_button :genre, :other %>
-                    <%= f.label :genre, "その他" %>
-                </div>
-                
-                <div class="form-group">
-                    <%= f.label :content, "本の概要" %>
-                    <%= f.text_area :content, class: 'form-control', rows: 5 %>
-                </div>
-                <%= f.submit "投稿", class: 'btn btn-primary btn-block' %>
-            <% end %>
-        </aside>
-        <div class="col-sm-8">
-            <%= render 'books/books', books: @books %>
+    <div class="center jumbotron">
+        <h3 class="text-center">
+            新しい本を投稿する
+        </h3>
+        <div class="text-center">
+            <%= link_to '投稿', new_book_path, class: 'btn btn-lg btn-primary' %>
         </div>
     </div>
+    
+    <h4 class="mb-3 text-center bg-info">
+        タイムライン
+    </h4>
+    <%= render 'books/books', books: @books %>
 <% else %>
-    <div class="text-center">
-        <h1>あなたのおすすめ本を紹介してみよう。</h1>
-        <%= link_to 'Signup', signup_path, class: 'btn btn-lg btn-primary' %>
+    <div class="center jumbotron">
+        <div class="text-center">
+            <h1>あなたのおすすめ本を紹介してみよう。</h1>
+            <%= link_to '会員登録', signup_path, class: 'btn btn-lg btn-primary' %>
+        </div>
     </div>
+    
 <% end %>
     
 

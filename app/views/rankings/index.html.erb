@@ -1,0 +1,38 @@
+<h2 class="mb-3 text-center">ランキング</h2>
+
+<ul class="list-unstyled">
+    <% @books.each.with_index(1) do |book, i| %>
+        <h3 class="mb-3">第<%= i %>位</h3>
+        <li class="card mb-3">
+            <div class="row no-gutters">
+                <div class ="col-sm-4">
+                    <div class="card-img">
+                        <%= image_tag book.image.url , width: '50%' %>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <%= link_to book.name, book_path(book) %>
+                        </h4>
+                        <h6 class="mt-3">ジャンル：<%= book.genre %></h6>
+                        <div class="row">
+                            <h6 class="col-sm-4">
+                                評価：
+                                <% if book.average %>
+                                    <%= book.average.round(1) %>
+                                <% end %>    
+                            </h6>
+                            <h6 class=" col-sm-8">
+                                投稿者：<%= link_to book.user.name, user_path(book.user) %>
+                            </h6>
+                        </div>
+                        <div class="mt-3">
+                            <%= render 'favorites/like_button', book: book %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <% end %>
+</ul>
